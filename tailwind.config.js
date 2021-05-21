@@ -9,6 +9,9 @@ module.exports = {
           dark: 'hsl(360, 78%, 08%)',
         },
       },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
     },
   },
   variants: {},
