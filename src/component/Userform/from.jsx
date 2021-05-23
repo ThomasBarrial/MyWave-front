@@ -1,35 +1,56 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Form({ question, setQuestion }) {
+function Form({ question, setQuestion, spots, setSpots, setIsForm }) {
   const [reponse1, setReponse1] = useState('');
   const [reponse2, setReponse2] = useState('');
   const [reponse3, setReponse3] = useState('');
-  const [reponse4, setReponse4] = useState('');
 
   const rep1 = (e) => {
     setQuestion(question + 1);
     setReponse1(e.target.value);
   };
+
+  useEffect(() => {
+    if (reponse1 === 'Sable') {
+      setSpots(spots.filter((spt) => spt.break_ID === 0));
+    } else {
+      setSpots(spots.filter((spt) => spt.break_ID === 1));
+    }
+  }, [reponse1]);
+
   const rep2 = (e) => {
     setQuestion(question + 1);
     setReponse2(e.target.value);
   };
+
+  useEffect(() => {
+    if (reponse2 === 'Sauvage') {
+      setSpots(spots.filter((spt) => spt.acces_ID === 0));
+    } else {
+      setSpots(spots.filter((spt) => spt.acces_ID === 1));
+    }
+  }, [reponse2]);
+
   const rep3 = (e) => {
     setQuestion(question + 1);
     setReponse3(e.target.value);
   };
-  const rep4 = (e) => {
-    setQuestion(1);
-    setReponse4(e.target.value);
-  };
-  console.log(question);
-  console.log(reponse1);
-  console.log(reponse2);
-  console.log(reponse3);
-  console.log(reponse4);
 
+  useEffect(() => {
+    if (reponse3 === 'Débutant') {
+      setSpots(spots.filter((spt) => spt.niveaux_ID === 0));
+    } else if (reponse3 === 'Intermédaire') {
+      setSpots(spots.filter((spt) => spt.niveaux_ID === 1));
+    } else {
+      setSpots(spots.filter((spt) => spt.niveaux_ID === 2));
+    }
+  }, [reponse3]);
+
+  const result = () => {
+    setIsForm(false);
+  };
   return (
     <div className="h-screen w-4/12 bg-white bg-opacity-20 text-white px-12 font-poppins">
       <h1 className="mt-5 font-bold text-4xl">MyWave</h1>
@@ -115,33 +136,25 @@ function Form({ question, setQuestion }) {
       ) : (
         ''
       )}
-
       {question === 4 ? (
         <div>
-          <div className="mt-8 flex justify-between">
+          <div className="mt-10 flex justify-between">
             <p className="border-b border-white pb-2 w-8/12">1. Selectionner le break</p>
             <p className="border-b border-white w-4/12 text-right">{reponse1}</p>
           </div>
-          <div className="mt-8 flex justify-between">
+          <div className="mt-5 flex justify-between">
             <p className="border-b border-white pb-2 w-8/12">2. Selectionner l'accéssiblité ...</p>
             <p className="border-b border-white w-4/12 text-right">{reponse2}</p>
           </div>
-          <div className="mt-10 flex justify-between">
+          <div className="mt-5 flex justify-between">
             <p className="border-b border-white pb-2 w-8/12">3. Selectionner votre niveau</p>
             <p className="border-b border-white w-4/12 text-right">{reponse3}</p>
           </div>
-          <p className="mt-8 border-b border-white pb-2">4. Type de vague</p>
           <button
-            className="border mt-4 mr-2 border-white px-6 py-1 hover:bg-white hover:bg-opacity-20 "
-            value="Smooth"
-            onClick={rep4}>
-            Smooth
-          </button>
-          <button
-            className="border mt-4 ml-2 border-white px-6 py-1 hover:bg-white hover:bg-opacity-20 "
-            value="Tubulaire"
-            onClick={rep4}>
-            Tubulaire
+            className="border mt-6 border-white px-6 py-1 hover:bg-white hover:bg-opacity-20 "
+            type="button"
+            onClick={result}>
+            Validé
           </button>
         </div>
       ) : (
@@ -156,4 +169,7 @@ export default Form;
 Form.propTypes = {
   setQuestion: PropTypes.func.isRequired,
   question: PropTypes.number.isRequired,
+  setIsForm: PropTypes.func.isRequired,
+  spots: PropTypes.array,
+  setSpots: PropTypes.func,
 };

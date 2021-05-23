@@ -17,7 +17,9 @@ function Acceuil() {
       <div className="py-24 px-40 ">
         <h1 className="text-8xl font-poppins font-bold text-white">Southwest France Surfspots</h1>
         <Link to="/findYourPerfectWave">
-          <h2 className="mt-28 text-2xl font-poppins  text-white">Search For your Perfect Wave</h2>{' '}
+          <h2 className="border mt-20 w-3/12 px-5 border-white py-1 text-white font-poppins hover:bg-white hover:bg-opacity-20 ">
+            Search For your Perfect Wave
+          </h2>{' '}
         </Link>
       </div>
     </div>
