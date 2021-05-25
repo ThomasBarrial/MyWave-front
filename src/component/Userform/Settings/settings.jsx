@@ -4,6 +4,7 @@ import Head from './head';
 import Sidebar from './sidebar';
 import Postform from './forms/postform';
 import Update from './forms/update';
+import Delete from './forms/delete';
 
 function Settings() {
   const [switcher, setSwitcher] = useState(1);
@@ -21,6 +22,7 @@ function Settings() {
         <Sidebar setSwitcher={setSwitcher} />
         {switcher === 1 ? <Postform /> : ''}
         {switcher === 2 ? <Update /> : ''}
+        {switcher === 3 ? <Delete /> : ''}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import axios from 'axios';
 import React, { useState } from 'react';
+import Resmsg from './resmsg';
 
 function Postform() {
   const [question, setQuestion] = useState(1);
@@ -13,6 +14,7 @@ function Postform() {
   const [niveauxId, setNiveauxId] = useState('');
   const [breakId, setBreakId] = useState('');
   const [accesId, setAccesId] = useState('');
+  const [postOk, setPostOk] = useState(false);
   const handleClick = (e) => {
     setQuestion(2);
     setNiveauxId(parseInt(e.target.value), 10);
@@ -42,11 +44,8 @@ function Postform() {
     await axios
       .post(`http://localhost:3000/api/MyWave`, data)
       .then(() => {
-        return (
-          <div>
-            <h1>Sucess</h1>
-          </div>
-        );
+        setPostOk(true);
+        return <Resmsg posOk={postOk} />;
       })
       .catch((err) => console.log(err));
   };
